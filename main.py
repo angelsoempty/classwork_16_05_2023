@@ -1,3 +1,4 @@
+#1
 class InvalidUsernameError(Exception):
     def __init__(self, username):
         self.username = username
