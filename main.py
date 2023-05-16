@@ -1,16 +1,16 @@
-#2
-class InvalidPasswordError(Exception):
-    def __init__(self, password):
-        self.password = password
-        super().__init__('Invalid password')
+#3
+class InvalidFileFormatError(Exception):
+    def __init__(self, filename):
+        self.filename = filename
 
-def validate_password(password):
-    if len(password) < 8 or not any(char.isdigit() for char in password):
-        raise InvalidPasswordError
-
+def read_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            content = file.read()
+            print('File contain: ', content)
+    except IOError:
+        raise InvalidFileFormatError(filename)
 try:
-    password = input('Введіть пароль: ')
-    validate_password(password)
-    print('Пароль відповідає вимогам.')
-except InvalidPasswordError as e:
-    print('Пароль не відповідає вимогам.')
+    read_file(input('Name of file: '))
+except InvalidFileFormatError as e:
+    print(f'Wrong format of file {e.filename}, supporting only .txt files')
