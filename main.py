@@ -1,16 +1,20 @@
-#2
-class InvalidPasswordError(Exception):
-    def __init__(self, password):
-        self.password = password
-        super().__init__('Invalid password')
+#1
+class InvalidUsernameError(Exception):
+    def __init__(self, username):
+        self.username = username
+        super().__init__('Invalid username')
 
-def validate_password(password):
-    if len(password) < 8 or not any(char.isdigit() for char in password):
-        raise InvalidPasswordError
+#InvalidLengthError
+#InvalidCharacterError
+#DublicateUsernameError
+
+def register_user(username):
+    if len(username) < 5:
+        raise InvalidUsernameError(username)
 
 try:
-    password = input('Введіть пароль: ')
-    validate_password(password)
-    print('Пароль відповідає вимогам.')
-except InvalidPasswordError as e:
-    print('Пароль не відповідає вимогам.')
+    username = input("Введіть ім'я користувача: ")
+    register_user(username)
+    print('Реєстрація успішна')
+except InvalidUsernameError as e:
+    print('Помилка.')
